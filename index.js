@@ -48,6 +48,8 @@ function init() {
     } else if (data.userChoice === "Add a role") {
       addARole();
     } else if (data.userChoice === "Add an employee") {
+      addEmployee();
+      //ask for first name last name and manager id and role id
     } else if (data.userChoice === "Update an employee role") {
       updateEmployee();
     } else {
@@ -128,6 +130,42 @@ function addARole() {
     });
 }
 
+function addEmployee() {
+  inquierer
+    .prompt([
+      {
+        type: "input",
+        name: "first_name",
+        message: "What is the first name of the employee?",
+      },
+      {
+        type: "input",
+        name: "last_name",
+        message: "What is the last name of the employee?",
+      },
+      {
+        type: "input",
+        name: "role_id",
+        message: "What is the role ID for this employee?",
+      },
+      {
+        type: "input",
+        name: "manager_id",
+        message: "What is the manager ID for this employee?",
+      },
+    ])
+    .then(function (data) {
+      const sql = `insert into employee (first_name, last_name, role_id, manager_id) values('${data.first_name}', '${data.last_name}', '${data.role_id}', '${data.manager_id}')`;
+      connection.query(sql, (error, results) => {
+        console.log("Employee has been added!");
+        if (error) {
+          console.log(error);
+        }
+        init();
+      });
+    });
+}
+
 function updateEmployee() {
   inquierer
     .prompt([
@@ -138,15 +176,16 @@ function updateEmployee() {
       },
       {
         type: "input",
-        name: "roleId",
+        name: "role_id",
         message: "What is the new role ID for the employee?",
       },
     ])
     .then(function (data) {
-      const sql = "update employee set role_id = ? where id = ? ";
+      const sql = "update employee set role_id=? where id=? ";
+      console.log(data);
       connection.query(
         sql,
-        [data.employeeId, data.roleId],
+        [data.role_id, data.employeeId],
         (error, results) => {
           console.log("Employee updated!");
           init();
