@@ -20,6 +20,8 @@ Command-line application that helps to manage a company's employee database.
 
 Node.js, Inquirer, and MySQL.
 
+Walkthrough Installation: (*https://drive.google.com/file/d/1DQCldGttoA0dpou7b4fr8TwDpK9RIfmG/view?usp=drive_link*
+
 ## Usage
 
 To help manage a company's employee database.
